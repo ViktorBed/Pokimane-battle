@@ -1,9 +1,0 @@
-# Default ignored files
-/shelf/
-/workspace.xml
-# Editor-based HTTP Client requests
-/httpRequests/
-# Ignore environment variables file
-.env
-# Ignore JetBrains IDEs settings folder
-.idea/
