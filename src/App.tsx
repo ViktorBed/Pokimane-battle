@@ -1,9 +1,10 @@
 import React from 'react';
+import Cards from "./Pages/Cards/Cards";
 
 function App() {
     return (
         <div>
-            <div>Nigro</div>
+            <Cards/>
         </div>
     );
 }

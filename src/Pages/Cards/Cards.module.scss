@@ -1,0 +1,29 @@
+.cardSpace {
+  display: flex;
+  gap: 30px;
+  flex-wrap: wrap;
+
+  .card {
+    display: flex;
+    width: 332px;
+    height: 400px;
+    flex-direction: column;
+    background-size: cover;
+
+    & img {
+      height: 200px;
+      max-width: 300px;
+      display: flex;
+      margin: 20% auto 14%;
+    }
+
+    & p {
+      text-align: center;
+      font-weight: 600;
+      font-family: 'Georgia', serif;
+      font-size: 16px;
+      line-height: 1.5;
+      color: #1f1f1f;
+    }
+  }
+}
