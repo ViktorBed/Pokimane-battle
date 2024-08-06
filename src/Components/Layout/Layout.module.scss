@@ -1,0 +1,31 @@
+.navbar{
+  width: 100vw;
+  background: #000000;
+  height: 50px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  position: fixed;
+  top: 0;
+  z-index: 2;
+  & div{
+    color: white;
+    display: flex;
+    margin: 2vw;
+    & input{
+      border: none;
+      height: 25px;
+      border-radius: 5px;
+      background: #313131;
+      color: white;
+      padding: 0 5px;
+      outline: none;
+    }
+  }
+  & div a{
+    cursor: pointer;
+    color: white;
+    text-decoration: none;
+    margin: 0 10vw;
+  }
+}
