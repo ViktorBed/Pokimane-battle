@@ -1,4 +1,4 @@
-import create from 'zustand';
+import {create} from 'zustand';
 import { DetailedPokemon } from '../Utils/type';
 
 interface SelectedPokemonStore {
@@ -16,10 +16,13 @@ const useSelectedPokemonStore = create<SelectedPokemonStore>((set) => ({
         }
         return state;
     }),
-    removePokemon: (pokemon) => set((state) => ({
-        selectedPokemons: state.selectedPokemons.filter(p => p !== pokemon)
-    })),
-    clearPokemons: () => set({ selectedPokemons: [] }),
+    removePokemon: (pokemon) => set((state) => {
+        return { selectedPokemons: state.selectedPokemons.filter(p => p !== pokemon) };
+    }),
+    clearPokemons: () => {
+        set({ selectedPokemons: [] });
+        localStorage.removeItem('selectedPokemons');
+    },
 }));
 
 export default useSelectedPokemonStore;

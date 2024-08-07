@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from 'react';
-import { useNavigate } from 'react-router-dom';
 import s from './Cards.module.scss';
 import Loader from "../../Utils/Loader";
 import usePokemonStore from '../../store/pokemonStore';
@@ -10,9 +9,11 @@ import { DetailedPokemon } from '../../Utils/type';
 const Cards: React.FC = () => {
     const [visibleCount, setVisibleCount] = useState<number>(20);
     const { searchQuery } = useSearchStore();
-    const navigate = useNavigate();
     const { selectedPokemons, addPokemon, removePokemon, clearPokemons } = useSelectedPokemonStore();
     const { detailedPokemonData, loading, fetchPokemonData } = usePokemonStore();
+
+    useEffect(() => {
+    }, [selectedPokemons]);
 
     useEffect(() => {
         if (detailedPokemonData.length === 0) {
@@ -57,12 +58,6 @@ const Cards: React.FC = () => {
         }
     };
 
-    const handleBattleNavigate = () => {
-        if (selectedPokemons.length === 2) {
-            navigate('/battle-table');
-        }
-    };
-
     const getCardClass = (pokemon: DetailedPokemon) => {
         const index = selectedPokemons.indexOf(pokemon);
         if (index === 0) return `${s.card} ${s.selectedBlue}`;
@@ -95,13 +90,6 @@ const Cards: React.FC = () => {
                                 <button onClick={loadMore} className={s.loadMoreButton}>Load More</button>
                             )}
                         </div>
-                        {/*<button*/}
-                        {/*    onClick={handleBattleNavigate}*/}
-                        {/*    className={s.battleButton}*/}
-                        {/*    disabled={selectedPokemons.length !== 2}*/}
-                        {/*>*/}
-                        {/*    Go to BattleField*/}
-                        {/*</button>*/}
                     </>
                 )}
             </div>

@@ -1,4 +1,43 @@
-.cardsContainer{
-  display: flex;
-  justify-content: space-between;
+.container{
+  background-image: url("../../Assets/Card/draw-a-pixel-pokemon-battle-background.gif");
+  background-size: cover;
+  background-position: center;
+  height: 100vh;
+  .cardsContainer{
+    align-items: center;
+    display: flex;
+    justify-content: space-between;
+    height: 100vh;
+    & span{
+      position: absolute;
+      display: flex;
+    }
+    & span:nth-child(2){
+      top: 110px;
+      left: 20px;
+    }
+    & span:nth-child(1){
+      right: 20px;
+      bottom: 70px;
+    }
+    .card{
+      position: absolute;
+      right: 21%;
+      top: 31%;
+      & img{
+        height: 200px;
+        width: 200px;
+      }
+      &:first-child{
+        left: 22%;
+        top: 56%;
+      }
+    }
+  }
+}
+
+.log{
+  position: absolute;
+  top: 20px;
+  right: 20px;
 }

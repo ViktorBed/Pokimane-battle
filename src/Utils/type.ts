@@ -18,6 +18,8 @@ export interface DetailedPokemon {
         attack: number;
     };
     sprites: {
+        back_default: string;
+        front_default: string;
         other: {
             dream_world: {
                 front_default: string;

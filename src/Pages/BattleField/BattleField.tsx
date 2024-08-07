@@ -1,43 +1,29 @@
 import React, { useEffect, useState } from 'react';
 import { useLocation } from 'react-router-dom';
+
+import useSelectedPokemonStore from "../../store/selectedPokemonStore";
+import {DetailedPokemon} from "../../Utils/type";
 import s from './BattleField.module.scss';
 
-interface Stat {
-    hp: number;
-    defense: number;
-    attack: number;
-}
-
-interface Pokemon {
-    name: string;
-    stats: Stat;
-    sprites: {
-        other: {
-            dream_world: {
-                front_default: string;
-            };
-        };
-    };
-}
-
 interface LocationState {
-    pokemons: Pokemon[];
+    pokemons: DetailedPokemon[];
 }
 
 const BattleField: React.FC = () => {
     const location = useLocation();
     const state = location.state as LocationState;
     const initialPokemons = state?.pokemons || [];
+    const { clearPokemons } = useSelectedPokemonStore();
 
     const [pokemons, setPokemons] = useState(initialPokemons);
     const [currentTurn, setCurrentTurn] = useState(0);
     const [log, setLog] = useState<string[]>([]);
 
-    const calculateDamage = (attacker: Pokemon, defender: Pokemon) => {
-        const effectiveDefense = defender.stats.defense / 5;
-        const reducedDamage = attacker.stats.attack - effectiveDefense;
-        const finalDamage = reducedDamage > 0 ? reducedDamage : attacker.stats.attack * 0.1; // At least 10% of the attack value
-        return finalDamage;
+    const calculateDamage = (attacker: DetailedPokemon, defender: DetailedPokemon) => {
+        const adjustedDefense = defender.stats.defense / 1.5;
+        const blockPercentage = adjustedDefense / 100;
+        const reducedDamage = attacker.stats.attack * (1 - blockPercentage);
+        return reducedDamage;
     };
 
     const attack = (attackerIndex: number, defenderIndex: number) => {
@@ -62,9 +48,9 @@ const BattleField: React.FC = () => {
                 ...prevLog,
                 `${defender.name} has fainted. ${attacker.name} wins!`,
             ]);
+            clearPokemons();
             return true;
         }
-
         return false;
     };
 
@@ -88,21 +74,28 @@ const BattleField: React.FC = () => {
 
     return (
         <div className={s.container}>
-            <h1>Battle Field</h1>
             <div className={s.cardsContainer}>
                 {pokemons.map((pokemon, index) => (
-                    <div
-                        key={index}
-                        className={`${s.card} ${index === 0 ? s.selectedBlue : s.selectedRed}`}
-                    >
-                        <img src={pokemon.sprites.other.dream_world.front_default} alt={pokemon.name} />
-                        <p>{pokemon.name}</p>
-                        <p>HP: {pokemon.stats.hp.toFixed(2)}</p>
-                        <p>Defense: {pokemon.stats.defense.toFixed(2)}</p>
-                        <p>Attack: {pokemon.stats.attack.toFixed(2)}</p>
-                    </div>
+                    <>
+                        <div
+                            key={index}
+                            className={`${s.card} ${index === 0 ? s.selectedBlue : s.selectedRed}`}
+                        >
+                            <img
+                                src={index === 0 ? pokemon.sprites.back_default : pokemon.sprites.front_default}
+                                alt={pokemon.name}
+                            />
+                        </div>
+                        <span className={s.stats}>
+                            <p>{pokemon.name}</p>
+                            <p>HP: {pokemon.stats.hp.toFixed(2)}</p>
+                            <p>Defense: {pokemon.stats.defense.toFixed(2)}</p>
+                            <p>Attack: {pokemon.stats.attack.toFixed(2)}</p>
+                        </span>
+                    </>
                 ))}
             </div>
+
             <div className={s.log}>
                 {log.map((entry, index) => (
                     <p key={index}>{entry}</p>
