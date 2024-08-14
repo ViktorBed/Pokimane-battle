@@ -1,5 +1,5 @@
 import {create} from 'zustand';
-import { DetailedPokemon } from '../Utils/type';
+import {DetailedPokemon} from '../Utils/type';
 
 interface SelectedPokemonStore {
     selectedPokemons: DetailedPokemon[];
@@ -12,15 +12,15 @@ const useSelectedPokemonStore = create<SelectedPokemonStore>((set) => ({
     selectedPokemons: [],
     addPokemon: (pokemon) => set((state) => {
         if (state.selectedPokemons.length < 2 && !state.selectedPokemons.includes(pokemon)) {
-            return { selectedPokemons: [...state.selectedPokemons, pokemon] };
+            return {selectedPokemons: [...state.selectedPokemons, pokemon]};
         }
         return state;
     }),
     removePokemon: (pokemon) => set((state) => {
-        return { selectedPokemons: state.selectedPokemons.filter(p => p !== pokemon) };
+        return {selectedPokemons: state.selectedPokemons.filter(p => p !== pokemon)};
     }),
     clearPokemons: () => {
-        set({ selectedPokemons: [] });
+        set({selectedPokemons: []});
         localStorage.removeItem('selectedPokemons');
     },
 }));

@@ -1,16 +1,16 @@
-import React, { useEffect, useState } from 'react';
-import s from './Cards.module.scss';
+import React, {useEffect, useState} from 'react';
 import Loader from "../../Utils/Loader";
 import usePokemonStore from '../../store/pokemonStore';
 import useSearchStore from '../../store/searchStore';
 import useSelectedPokemonStore from '../../store/selectedPokemonStore';
-import { DetailedPokemon } from '../../Utils/type';
+import {DetailedPokemon} from '../../Utils/type';
+import s from './Cards.module.scss';
 
 const Cards: React.FC = () => {
     const [visibleCount, setVisibleCount] = useState<number>(20);
-    const { searchQuery } = useSearchStore();
-    const { selectedPokemons, addPokemon, removePokemon, clearPokemons } = useSelectedPokemonStore();
-    const { detailedPokemonData, loading, fetchPokemonData } = usePokemonStore();
+    const {searchQuery} = useSearchStore();
+    const {selectedPokemons, addPokemon, removePokemon, clearPokemons} = useSelectedPokemonStore();
+    const {detailedPokemonData, loading, fetchPokemonData} = usePokemonStore();
 
     useEffect(() => {
     }, [selectedPokemons]);
@@ -70,7 +70,7 @@ const Cards: React.FC = () => {
             <div className={s.cardSpace}>
                 {loading ? (
                     <div className={s.loading}>
-                        <Loader />
+                        <Loader/>
                     </div>
                 ) : (
                     <>
@@ -81,7 +81,7 @@ const Cards: React.FC = () => {
                                 onClick={() => handleCardClick(pokemon)}
                             >
                                 <img src={pokemon.sprites.other.dream_world.front_default}
-                                     alt={`${pokemon.name} default`} draggable={false} />
+                                     alt={`${pokemon.name} default`} draggable={false}/>
                                 <p>{formatName(pokemon.name)}</p>
                             </div>
                         ))}

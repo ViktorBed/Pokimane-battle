@@ -16,6 +16,7 @@ export interface DetailedPokemon {
         hp: number;
         defense: number;
         attack: number;
+        initialHp?: any;
     };
     sprites: {
         back_default: string;

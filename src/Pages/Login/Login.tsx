@@ -6,7 +6,7 @@ const Login: React.FC = () => {
         <div className={s.loginContainer}>
             <form className={s.loginForm}>
                 <h2>Login</h2>
-                <LoginButton />
+                <LoginButton/>
             </form>
         </div>
     );

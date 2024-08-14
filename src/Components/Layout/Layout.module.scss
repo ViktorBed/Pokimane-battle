@@ -1,4 +1,4 @@
-.navbar{
+.navbar {
   width: 100vw;
   background: #000000;
   height: 50px;
@@ -8,11 +8,13 @@
   position: fixed;
   top: 0;
   z-index: 2;
-  & div{
+
+  & div {
     color: white;
     display: flex;
     margin: 2vw;
-    & input{
+
+    & input {
       border: none;
       height: 25px;
       border-radius: 5px;
@@ -22,7 +24,8 @@
       outline: none;
     }
   }
-  & div a{
+
+  & div a {
     cursor: pointer;
     color: white;
     text-decoration: none;

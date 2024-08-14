@@ -1,6 +1,6 @@
 import React from 'react';
 import ReactDOM from 'react-dom/client';
-import { Auth0Provider } from '@auth0/auth0-react';
+import {Auth0Provider} from '@auth0/auth0-react';
 
 import App from './App';
 import './index.css';
@@ -17,6 +17,6 @@ root.render(
             redirect_uri: process.env.REACT_APP_REDIRECT_URI
         }}
     >
-       <App/>
+        <App/>
     </Auth0Provider>
 );

@@ -1,10 +1,10 @@
 import React from 'react';
-import { NavLink, Outlet } from 'react-router-dom';
+import {NavLink, Outlet} from 'react-router-dom';
 import useSearchStore from '../../store/searchStore';
 import s from './Layout.module.scss';
 
 const Layout: React.FC = () => {
-    const { searchQuery, setSearchQuery } = useSearchStore();
+    const {searchQuery, setSearchQuery} = useSearchStore();
 
     const handleSearchChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         setSearchQuery(e.target.value);
@@ -26,7 +26,7 @@ const Layout: React.FC = () => {
                     />
                 </div>
             </div>
-            <Outlet />
+            <Outlet/>
         </>
     );
 };

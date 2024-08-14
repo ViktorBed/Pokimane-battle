@@ -1,7 +1,7 @@
 import React from 'react';
 import {useNavigate} from 'react-router-dom';
-import s from './BattleTable.module.scss';
 import useSelectedPokemonStore from '../../store/selectedPokemonStore';
+import s from './BattleTable.module.scss';
 
 const BattleTable: React.FC = () => {
     const navigate = useNavigate();
