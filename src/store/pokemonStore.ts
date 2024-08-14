@@ -1,6 +1,7 @@
-import {create} from 'zustand';
-import {DetailedPokemon, Stat} from '../Utils/type';
-import {shuffleArray} from "../Utils/Shuffle";
+import { create } from 'zustand';
+import { DetailedPokemon, Stat } from '../Utils/type';
+import { shuffleArray } from "../Utils/Shuffle";
+import getPokemonData from "../services/pokemone";
 
 interface PokemonStore {
     detailedPokemonData: DetailedPokemon[];
@@ -14,8 +15,7 @@ const usePokemonStore = create<PokemonStore>((set) => ({
     fetchPokemonData: async () => {
         set({loading: true});
         try {
-            const response = await fetch('https://pokeapi.co/api/v2/pokemon?limit=100000&offset=0');
-            const data = await response.json();
+            const data = await getPokemonData(); // Використовуйте ваш сервіс тут
             const detailedDataPromises = data.results.map(async (pokemon: { name: string; url: string }) => {
                 const res = await fetch(pokemon.url);
                 const detailedData = await res.json();
