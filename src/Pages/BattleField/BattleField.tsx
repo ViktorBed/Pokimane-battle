@@ -30,7 +30,7 @@ const BattleField: React.FC = () => {
     const [buttonVisible, setButtonVisible] = useState<boolean>(false);
 
     const calculateDamage = (attacker: DetailedPokemon, defender: DetailedPokemon): number => {
-        const attackVariation = 1 + (Math.random() * 0.02 - 0.01); // ±1% variation
+        const attackVariation = 1 + (Math.random() * 0.02 - 0.01);
         const adjustedAttack = (attacker.stats.attack * attackVariation) / 1.3;
         const adjustedDefense = defender.stats.defense / 2.2;
         const blockPercentage = adjustedDefense / 100;

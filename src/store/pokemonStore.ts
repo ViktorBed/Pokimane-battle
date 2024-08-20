@@ -15,7 +15,7 @@ const usePokemonStore = create<PokemonStore>((set) => ({
     fetchPokemonData: async () => {
         set({loading: true});
         try {
-            const data = await getPokemonData(); // Використовуйте ваш сервіс тут
+            const data = await getPokemonData();
             const detailedDataPromises = data.results.map(async (pokemon: { name: string; url: string }) => {
                 const res = await fetch(pokemon.url);
                 const detailedData = await res.json();
