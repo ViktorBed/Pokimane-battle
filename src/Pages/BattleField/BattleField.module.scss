@@ -34,6 +34,21 @@
   }
 }
 
+@keyframes critical {
+  0% {
+    opacity: 0;
+  }
+  10% {
+    opacity: 1;
+  }
+  90% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 0;
+  }
+}
+
 .attacking {
   animation: blink 1s linear;
 }
@@ -186,6 +201,7 @@
 
   .returnBtn {
     cursor: pointer;
+    z-index: 200;
     background: #000000;
     width: 200px;
     min-height: 50px;
@@ -311,8 +327,52 @@
     right: 0;
     top: 31px;
     border-radius: 0;
+    z-index: 200;
   }
   .return {
     bottom: 140px;
   }
+}
+
+.winnerDisplay {
+  transform: translate(-50%, -50%);
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  display: flex;
+  font-family: "Nerko One", cursive;
+  justify-content: center;
+  align-items: center;
+  z-index: 100;
+  color: #fea807;
+  font-size: 4rem;
+  text-transform: uppercase;
+  text-align: center;
+  text-shadow:
+          -2px -2px 0 #000,
+          2px -2px 0 #000,
+          -2px 2px 0 #000,
+          2px 2px 0 #000;
+}
+
+.criticalHitDisplay {
+  opacity: 0;
+  text-align: center;
+  position: fixed;
+  animation: critical 1s linear;
+  color: #ec1e1e;
+  top: 50%;
+  left: 50%;
+  display: flex;
+  transform: translate(-50%, -50%);
+  font-family: "Nerko One", cursive;
+  font-size: 4rem;
+  z-index: 100;
+  text-transform: uppercase;
+  flex-wrap: wrap;
+  text-shadow:
+          -2px -2px 0 #000,
+          2px -2px 0 #000,
+          -2px 2px 0 #000,
+          2px 2px 0 #000;
 }

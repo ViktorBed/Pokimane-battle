@@ -1,19 +1,19 @@
-import React, {useEffect, useState} from 'react';
+import React, { useEffect, useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import Loader from "../../Utils/Loader";
 import usePokemonStore from '../../store/pokemonStore';
 import useSearchStore from '../../store/searchStore';
 import useSelectedPokemonStore from '../../store/selectedPokemonStore';
-import {DetailedPokemon} from '../../Utils/type';
+import { DetailedPokemon } from '../../Utils/type';
+import InfiniteScroll from 'react-infinite-scroll-component';
 import s from './Cards.module.scss';
 
 const Cards: React.FC = () => {
     const [visibleCount, setVisibleCount] = useState<number>(20);
-    const {searchQuery} = useSearchStore();
-    const {selectedPokemons, addPokemon, removePokemon, clearPokemons} = useSelectedPokemonStore();
-    const {detailedPokemonData, loading, fetchPokemonData} = usePokemonStore();
-
-    useEffect(() => {
-    }, [selectedPokemons]);
+    const navigate = useNavigate();
+    const { searchQuery } = useSearchStore();
+    const { selectedPokemons, addPokemon, removePokemon, clearPokemons } = useSelectedPokemonStore();
+    const { detailedPokemonData, loading, fetchPokemonData } = usePokemonStore();
 
     useEffect(() => {
         if (detailedPokemonData.length === 0) {
@@ -58,6 +58,10 @@ const Cards: React.FC = () => {
         }
     };
 
+    const handleGoBattle = () => {
+        navigate('/battle-table');
+    };
+
     const getCardClass = (pokemon: DetailedPokemon) => {
         const index = selectedPokemons.indexOf(pokemon);
         if (index === 0) return `${s.card} ${s.selectedBlue}`;
@@ -67,13 +71,23 @@ const Cards: React.FC = () => {
 
     return (
         <div className={s.background}>
-            <div className={s.cardSpace}>
                 {loading ? (
                     <div className={s.loading}>
-                        <Loader/>
+                        <Loader />
                     </div>
                 ) : (
-                    <>
+                    <InfiniteScroll
+                        dataLength={visibleCount}
+                        next={loadMore}
+                        hasMore={visibleCount < filteredPokemonData.length}
+                        loader={<Loader />}
+                        className={s.cardSpace}
+                        endMessage={
+                            <p style={{ textAlign: 'center' }}>
+                                <b>Це всі доступні покемони</b>
+                            </p>
+                        }
+                    >
                         {filteredPokemonData.slice(0, visibleCount).map((pokemon, index) => (
                             <div
                                 className={getCardClass(pokemon)}
@@ -81,18 +95,17 @@ const Cards: React.FC = () => {
                                 onClick={() => handleCardClick(pokemon)}
                             >
                                 <img src={pokemon.sprites.other.dream_world.front_default}
-                                     alt={`${pokemon.name} default`} draggable={false}/>
+                                     alt={`${pokemon.name} default`} draggable={false} />
                                 <p>{formatName(pokemon.name)}</p>
                             </div>
                         ))}
-                        <div className={s.load}>
-                            {visibleCount < filteredPokemonData.length && (
-                                <button onClick={loadMore} className={s.loadMoreButton}>Load More</button>
-                            )}
-                        </div>
-                    </>
+                    </InfiniteScroll>
                 )}
-            </div>
+                {selectedPokemons.length === 2 && (
+                    <div className={s.goBattle}>
+                        <button onClick={handleGoBattle} className={s.goBattleButton}>Go Battle</button>
+                    </div>
+                )}
         </div>
     );
 }

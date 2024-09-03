@@ -12,42 +12,42 @@
     padding: 30px;
     min-height: 100vh;
 
-    .card {
-      display: flex;
-      width: 332px;
-      height: 400px;
-      cursor: pointer;
-      flex-direction: column;
-      background-size: cover;
-      align-items: center;
-      background-image: url("../../Assets/Card/cardbackground.png");
-      transition: .3s ease;
-      transform: scale(1);
-      box-sizing: border-box;
-
-      & img {
-        height: 200px;
-        max-width: 300px;
+      .card {
         display: flex;
-        margin: 20% auto 14%;
-      }
-
-      & p {
-        text-align: center;
-        font-weight: 600;
-        font-family: "Georgia", serif;
-        font-size: 16px;
-        line-height: 1.5;
-        color: #1f1f1f;
-        width: auto;
-        max-width: 140px;
-        display: flex;
-        justify-content: center;
-        flex-wrap: wrap;
+        width: 332px;
+        height: 400px;
+        cursor: pointer;
+        flex-direction: column;
+        background-size: cover;
         align-items: center;
-        margin: 0;
-        height: 15%;
-      }
+        background-image: url("../../Assets/Card/cardbackground.png");
+        transition: .3s ease;
+        transform: scale(1);
+        box-sizing: border-box;
+
+        & img {
+          height: 200px;
+          max-width: 300px;
+          display: flex;
+          margin: 20% auto 14%;
+        }
+
+        & p {
+          text-align: center;
+          font-weight: 600;
+          font-family: "Georgia", serif;
+          font-size: 16px;
+          line-height: 1.5;
+          color: #1f1f1f;
+          width: auto;
+          max-width: 140px;
+          display: flex;
+          justify-content: center;
+          flex-wrap: wrap;
+          align-items: center;
+          margin: 0;
+          height: 15%;
+        }
     }
   }
 
@@ -83,6 +83,26 @@
 
 .selectedRed {
   border: 5px solid red;
+}
+
+.goBattle{
+  width: 100vw;
+  display: flex;
+  justify-content: center;
+  .goBattleButton{
+    cursor: pointer;
+    background: #000000;
+    width: 200px;
+    height: 50px;
+    font-size: 16px;
+    font-family: "Georgia", serif;
+    border-radius: 4px;
+    outline: none;
+    border: none;
+    color: white;
+  }
+  position: fixed;
+  bottom: 120px;
 }
 
 @media screen and (max-width: 700px) {

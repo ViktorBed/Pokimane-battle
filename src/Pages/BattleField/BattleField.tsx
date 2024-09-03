@@ -28,13 +28,23 @@ const BattleField: React.FC = () => {
     const [defendingPokemon, setDefendingPokemon] = useState<number | null>(null);
     const [opacity, setOpacity] = useState<number[]>([1, 1]);
     const [buttonVisible, setButtonVisible] = useState<boolean>(false);
+    const [winnerName, setWinnerName] = useState<string | null>(null);
+    const [criticalHit, setCriticalHit] = useState<{ show: boolean, key: number }>({ show: false, key: 0 });
 
     const calculateDamage = (attacker: DetailedPokemon, defender: DetailedPokemon): number => {
         const attackVariation = 1 + (Math.random() * 0.02 - 0.01);
-        const adjustedAttack = (attacker.stats.attack * attackVariation) / 1.3;
+        let adjustedAttack = (attacker.stats.attack * attackVariation) / 1.3;
         const adjustedDefense = defender.stats.defense / 2.2;
         const blockPercentage = adjustedDefense / 100;
-        const reducedDamage = adjustedAttack * (1 - blockPercentage);
+        let reducedDamage = adjustedAttack * (1 - blockPercentage);
+
+        if (Math.random() < 0.05) {
+            reducedDamage *= 1.5;
+            setCriticalHit({ show: true, key: Math.random() });
+        } else {
+            setCriticalHit({ show: false, key: criticalHit.key });
+        }
+
         return reducedDamage;
     };
 
@@ -63,7 +73,7 @@ const BattleField: React.FC = () => {
                 ...prevLog,
                 `${defender.name} has fainted. ${attacker.name} wins!`,
             ]);
-
+            setWinnerName(attacker.name);
             setTimeout(() => {
                 setOpacity((prevOpacity) => {
                     const updatedOpacity = [...prevOpacity];
@@ -126,12 +136,13 @@ const BattleField: React.FC = () => {
                             className={`${s.card} ${index === 0 ? s.selectedBlue : s.selectedRed}`}
                             style={{
                                 opacity: opacity[index],
-                                transition: 'opacity 1s, transform 0.2s',
+                                transition: 'opacity 1s, transform 0.2s, width 0.2s' ,
                                 transform: index === attackingPokemon
                                     ? index === 0
                                         ? 'translateX(20px)'
                                         : 'translateX(-20px)'
                                     : 'translateX(0)',
+                                width: 'fit-content'
                             }}
                         >
                             <img
@@ -175,6 +186,17 @@ const BattleField: React.FC = () => {
                         style={{display: buttonVisible ? 'block' : 'none'}}>Go Back
                 </button>
             </div>
+            {criticalHit.show && (
+                <div key={criticalHit.key} className={s.criticalHitDisplay}>
+                    <h4>Critical Damage!</h4>
+                </div>
+            )}
+
+            {winnerName && (
+                <div className={s.winnerDisplay}>
+                    <h4>{winnerName} Wins!</h4>
+                </div>
+            )}
         </div>
     );
 };
